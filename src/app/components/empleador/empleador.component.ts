@@ -8,8 +8,11 @@ export class EmpleadorComponent implements OnInit {
     public empleadores = [];
     public headElements = ["Id","Documento", "Nombre", "Actividad", "Direccion", "Teléfono", "Opciones"];
     public empleadorIndice = null;
-
+    public documentoInput  = "";
     public nombreInput = "";
+    public actividadInput = "";
+    public direccionInput = "";
+    public telefonoInput = "";
 
     constructor(private empleadorService: EmpleadorService) {}
   
@@ -37,7 +40,11 @@ export class EmpleadorComponent implements OnInit {
       createEmpleador(): void {
         this.empleadorIndice = null;
         const nuevoUsuario: any = {
-          nombre: this.nombreInput || ""
+          documento: this.documentoInput,
+          nombre: this.nombreInput,
+          activdad: this.actividadInput,
+          direccion: this.direccionInput,
+          telefono: this.telefonoInput
         };
         console.log("click createUsuario === ", { nuevoUsuario });
         this.empleadorService.createEmpleador(nuevoUsuario).subscribe(data => {
@@ -53,7 +60,11 @@ export class EmpleadorComponent implements OnInit {
     
       guardarEdicionEmpleador(): void {
         const empleadorEditado: any = {
-          nombre: this.nombreInput || ""
+          documento: this.documentoInput,
+          nombre: this.nombreInput,
+          activdad: this.actividadInput,
+          direccion: this.direccionInput,
+          telefono: this.telefonoInput
         };
         this.empleadorService
           .editEmpleador(this.empleadorIndice, empleadorEditado)
@@ -62,4 +73,16 @@ export class EmpleadorComponent implements OnInit {
             this.getEmpleador();
           });
       }
+
+      /*guardarEdicionEmpleador(): void {
+        const empleadorEditado: any = {
+          nombre: this.nombreInput || ""
+        };
+        this.empleadorService
+          .editEmpleador(this.empleadorIndice, empleadorEditado)
+          .subscribe(data => {
+            console.log({ data });
+            this.getEmpleador();
+          });
+      }*/
 }
